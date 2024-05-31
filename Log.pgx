@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Programs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.staubli.com/robotics/VAL3/Program/2" >
+  <Program name="Log" access="private" >
+    <Code><![CDATA[begin
+  do
+    // Registrar un nou event al logger
+    if bNewLog==true
+      // Desplaçar registre d'events
+      for nLog=49 to 1 step -1
+        sLog[nLog]=sLog[nLog-1]
+      endFor
+      // Afegir nou event
+      sLog[0]=sNewLog
+      bNewLog=false
+    endIf
+
+  until false
+end]]></Code>
+  </Program>
+</Programs>

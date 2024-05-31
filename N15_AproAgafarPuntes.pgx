@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Programs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.staubli.com/robotics/VAL3/Program/2" >
+  <Program name="N15_AproAgafarPuntes" access="private" >
+    <Locals>
+      <Local name="l_pAproAgafarPuntes" type="pointRx" xsi:type="array" size="1" />
+    </Locals>
+    <Code><![CDATA[begin
+
+  // Anar a l'aproximació del punt d'agafar puntes
+  if aioGet(aiNumPipeta)==2
+    l_pAproAgafarPuntes=pAgafarPuntes8
+  else
+    l_pAproAgafarPuntes=pAgafarPuntes1
+  endIf
+
+  l_pAproAgafarPuntes.trsf.x=l_pAproAgafarPuntes.trsf.x+nXOffset
+  l_pAproAgafarPuntes.trsf.y=l_pAproAgafarPuntes.trsf.y+nYOffset
+  l_pAproAgafarPuntes.trsf.z=l_pAproAgafarPuntes.trsf.z+nZOffset
+
+  if nZApro>0
+    l_pAproAgafarPuntes.trsf.z=l_pAproAgafarPuntes.trsf.z+nZApro
+  else
+    l_pAproAgafarPuntes.trsf.z=l_pAproAgafarPuntes.trsf.z+100
+  endIf
+
+  movel(l_pAproAgafarPuntes,tToolActiva,mLent)
+  waitEndMove()
+
+  bTaskDone=true
+end]]></Code>
+  </Program>
+</Programs>

@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Programs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.staubli.com/robotics/VAL3/Program/2" >
+  <Program name="N22_PosDosi" access="private" >
+    <Locals>
+      <Local name="l_pDosi" type="pointRx" xsi:type="array" size="1" />
+    </Locals>
+    <Code><![CDATA[begin
+
+  // Moure puntes per treure les gotes
+  l_pDosi=here(tToolActiva,fTaula)
+  l_pDosi.trsf.x=l_pDosi.trsf.x+nXOffset
+  l_pDosi.trsf.y=l_pDosi.trsf.y+nYOffset
+  l_pDosi.trsf.z=l_pDosi.trsf.z+nZOffset
+  movel(l_pDosi,tToolActiva,mLent)
+  waitEndMove()
+
+  bTaskDone=true
+end]]></Code>
+  </Program>
+</Programs>

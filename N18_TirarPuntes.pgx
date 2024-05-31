@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Programs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.staubli.com/robotics/VAL3/Program/2" >
+  <Program name="N18_TirarPuntes" access="private" >
+    <Locals>
+      <Local name="l_pTirarPuntes" type="pointRx" xsi:type="array" size="1" />
+    </Locals>
+    <Code><![CDATA[begin
+
+  // Anar al punt de tirar puntes
+  l_pTirarPuntes=pTirarPuntes
+  l_pTirarPuntes.trsf.x=l_pTirarPuntes.trsf.x+nXOffset
+  l_pTirarPuntes.trsf.y=l_pTirarPuntes.trsf.y+nYOffset
+  l_pTirarPuntes.trsf.z=l_pTirarPuntes.trsf.z+nZOffset
+  movel(l_pTirarPuntes,tToolActiva,mLent)
+  waitEndMove()
+
+  bTaskDone=true
+end]]></Code>
+  </Program>
+</Programs>

@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Programs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.staubli.com/robotics/VAL3/Program/2">
+  <Program name="Control">
+    <Locals>
+      <Local name="l_pHere" type="pointRx" xsi:type="array" size="1" />
+    </Locals>
+    <Code><![CDATA[begin
+  do
+    // Status robot
+    aioSet(aoStatusRobot,esStatus())
+    aioSet(aoWorkingMode,workingMode())
+
+    // Velocitat del robot segons hmi
+    //setMonitorSpeed(aioGet(aiVelocitatRobot))
+
+    // Donar potencia al robot
+    if esStatus()==0 and diAlarmaPlc==false and isPowered()==false and workingMode()==4
+      enablePower()
+    endIf
+
+    // Definir tool de treball
+    if aioGet(aiNumPipeta)==2
+      tToolActiva=tToolPipeta8
+    else
+      tToolActiva=tToolPipeta1
+    endIf
+
+    // Envelope error - Alarma possible colisió del robot
+    //doAlarmaColisioRobot=$envelopeError()
+
+    // Error "Posició cartesiana fóra de límits"
+    if taskStatus("Principal")==531 or taskStatus("N1_Home")==531 or taskStatus("N10_AproBanyera")==531 or taskStatus("N11_Banyera")==531 or taskStatus("N15_AproAgafarPuntes")==531 or taskStatus("N16_AgafarPuntes")==531 or taskStatus("N17_AproTirarPuntes")==531 or taskStatus("N18_TirarPuntes")==531 or taskStatus("N20_AproDosi")==531 or taskStatus("N21_Dosi")==531 or taskStatus("N22_PosDosi")==531 or taskStatus("N12_AproAmpolla")==531 or taskStatus("N13_Ampolla")==531
+      aioSet(aoTascaAlarma,aioGet(aoProgramaRobot))
+      doAlarmaTascaRobot=true
+    else
+      doAlarmaTascaRobot=false
+    endIf
+
+    // Enviar al PLC la força de cada motor del robot (Nm)
+    getJointForce(nJointForce)
+    aioSet(aoForceJ1,nJointForce[0])
+    aioSet(aoForceJ2,nJointForce[1])
+    aioSet(aoForceJ3,nJointForce[2])
+    aioSet(aoForceJ4,nJointForce[3])
+    aioSet(aoForceJ5,nJointForce[4])
+    aioSet(aoForceJ6,nJointForce[5])
+
+    // Enviar al PLC la posició actual del robot
+    l_pHere=here(tToolActiva,world)
+    aioSet(aoXActual,l_pHere.trsf.x)
+    aioSet(aoYActual,l_pHere.trsf.y)
+    aioSet(aoZActual,l_pHere.trsf.z)
+
+  until false
+end]]></Code>
+  </Program>
+</Programs>

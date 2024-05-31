@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Programs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.staubli.com/robotics/VAL3/Program/2">
+  <Program name="N21_Dosi">
+    <Locals>
+      <Local name="l_pDosi" type="pointRx" xsi:type="array" size="1" />
+    </Locals>
+    <Code><![CDATA[begin
+
+  // Anar al punt de dosificar placa
+  if aioGet(aiNumPipeta)==2
+    l_pDosi=pDosi8[aioGet(aiNumPlacaDosi)]
+  else
+    l_pDosi=pDosi1[aioGet(aiNumPlacaDosi)]
+  endIf
+  l_pDosi.trsf.x=l_pDosi.trsf.x+nXOffset
+  l_pDosi.trsf.y=l_pDosi.trsf.y+nYOffset
+  l_pDosi.trsf.z=l_pDosi.trsf.z+nZOffset
+  l_pDosi.trsf.rx=l_pDosi.trsf.rx+aioGet(aiAngleInclinarPipieta)
+
+  movel(l_pDosi,tToolActiva,mLent)
+  waitEndMove()
+
+  bTaskDone=true
+end]]></Code>
+  </Program>
+</Programs>

@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Programs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.staubli.com/robotics/VAL3/Program/2">
+  <Program name="Emergencia">
+    <Code><![CDATA[begin
+
+  do
+    if diAlarmaPlc==true
+
+      taskKill("Principal")
+      taskKill("N1_Home")
+      taskKill("N10_AproBanyera")
+      taskKill("N11_Banyera")
+      taskKill("N12_AproAmpolla")
+      taskKill("N13_Ampolla")          
+      taskKill("N15_AproAgafarPuntes")
+      taskKill("N16_AgafarPuntes")
+      taskKill("N17_AproTirarPuntes")
+      taskKill("N18_TirarPuntes")
+      taskKill("N20_AproDosi")
+      taskKill("N21_Dosi")
+      taskKill("N22_PosDosi")
+
+
+      resetMotion()
+      //Reset variables
+      doRobotHome=false
+      doRobotEnMoviment=false
+
+      doAlarmaColisioRobot=false
+      doTaskDone=false
+
+      bTaskDone=false
+      bPrimerCicle=false
+      nSeqHome=0
+      aioSet(aoProgramaRobot,0)
+      aioSet(aoZonaHome,0)
+
+      wait(diAlarmaPlc==false)
+
+      taskCreate "Principal",50,Principal()
+    endIf
+    delay(0)
+  until false
+
+
+end]]></Code>
+  </Program>
+</Programs>

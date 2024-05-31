@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Programs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.staubli.com/robotics/VAL3/Program/2" >
+  <Program name="N11_Banyera" access="private" >
+    <Locals>
+      <Local name="l_pBanyera" type="pointRx" xsi:type="array" size="1" />
+    </Locals>
+    <Code><![CDATA[begin
+
+  // Anar al punt de la banyera
+  l_pBanyera=pBanyera[aioGet(aiNumBanyera)]
+  l_pBanyera.trsf.x=l_pBanyera.trsf.x+nXOffset
+  l_pBanyera.trsf.y=l_pBanyera.trsf.y+nYOffset
+  l_pBanyera.trsf.z=l_pBanyera.trsf.z+nZOffset
+  movel(l_pBanyera,tToolActiva,mLent)
+  waitEndMove()
+
+  bTaskDone=true
+end]]></Code>
+  </Program>
+</Programs>

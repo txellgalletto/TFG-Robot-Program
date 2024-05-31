@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Programs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.staubli.com/robotics/VAL3/Program/2" >
+  <Program name="N17_AproTirarPuntes" access="private" >
+    <Locals>
+      <Local name="l_pAproTirarPuntes" type="pointRx" xsi:type="array" size="1" />
+    </Locals>
+    <Code><![CDATA[begin
+
+  // Anar a l'aproximació del punt de tirar puntes
+  l_pAproTirarPuntes=pTirarPuntes
+  l_pAproTirarPuntes.trsf.x=l_pAproTirarPuntes.trsf.x+nXOffset
+  l_pAproTirarPuntes.trsf.y=l_pAproTirarPuntes.trsf.y+nYOffset
+  l_pAproTirarPuntes.trsf.z=l_pAproTirarPuntes.trsf.z+nZOffset
+
+  if nZApro>0
+    l_pAproTirarPuntes.trsf.z=l_pAproTirarPuntes.trsf.z+nZApro
+  else
+    l_pAproTirarPuntes.trsf.z=l_pAproTirarPuntes.trsf.z+50
+  endIf
+
+  movel(l_pAproTirarPuntes,tToolActiva,mLent)
+  waitEndMove()
+
+  bTaskDone=true
+end]]></Code>
+  </Program>
+</Programs>

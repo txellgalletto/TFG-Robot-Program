@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Programs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.staubli.com/robotics/VAL3/Program/2" >
+  <Program name="N12_AproAmpolla" access="private" >
+    <Locals>
+      <Local name="l_pAproAmpolla" type="pointRx" xsi:type="array" size="1" />
+    </Locals>
+    <Code><![CDATA[begin
+
+  // Anar a l'aproximació del punt d'agafar líquid de l'ampolla
+  l_pAproAmpolla=pAmpolla[aioGet(aiNumAmpolla)]
+  l_pAproAmpolla.trsf.x=l_pAproAmpolla.trsf.x+nXOffset
+  l_pAproAmpolla.trsf.y=l_pAproAmpolla.trsf.y+nYOffset
+  l_pAproAmpolla.trsf.z=l_pAproAmpolla.trsf.z+nZOffset
+
+  if nZApro>0
+    l_pAproAmpolla.trsf.z=l_pAproAmpolla.trsf.z+nZApro
+  else
+    l_pAproAmpolla.trsf.z=l_pAproAmpolla.trsf.z+100
+  endIf
+
+  movel(l_pAproAmpolla,tToolActiva,mLent)
+  waitEndMove()
+
+  bTaskDone=true
+end]]></Code>
+  </Program>
+</Programs>

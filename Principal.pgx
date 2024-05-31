@@ -1,0 +1,225 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Programs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.staubli.com/robotics/VAL3/Program/2">
+  <Program name="Principal">
+    <Code><![CDATA[begin
+  do
+
+    // Esperar aiProgramaPlc <> 0
+    do
+      delay(0)
+    until (aioGet(aiProgramaPlc)!=0)
+
+    // Processar X,Y,Z offset posició
+    nXOffset=aioGet(aiXOffset)/100
+    nYOffset=aioGet(aiYOffset)/100
+    nZOffset=aioGet(aiZOffset)/100
+    nZApro=aioGet(aiZApro)
+
+    bTaskDone=false
+    doTaskDone=false
+    doRobotEnMoviment=true
+    doRobotHome=false
+    // Cridar programa corresponent
+    switch aioGet(aiProgramaPlc)
+      // 1: HOME
+      case 1
+        wait(bNewLog==false)
+        sNewLog="1 - Inici: HOME"
+        bNewLog=true
+        nSeqHome=0
+        aioSet(aoProgramaRobot,1)
+        taskCreate "N1_Home",50,N1_Home()
+        wait(bTaskDone==true)
+        wait(aioGet(aiProgramaPlc)==0)
+        aioSet(aoProgramaRobot,0)
+        doTaskDone=true
+        wait(bNewLog==false)
+        sNewLog="1 - Fi: HOME"
+        bNewLog=true
+      break
+
+      // 10: ANAR A APRO BANYERA
+      case 10
+        wait(bNewLog==false)
+        sNewLog="10 - Inici: ANAR A APRO BANYERA"
+        bNewLog=true
+        aioSet(aoProgramaRobot,10)
+        taskCreate "N10_AproBanyera",50,N10_AproBanyera()
+        wait(bTaskDone==true)
+        wait(aioGet(aiProgramaPlc)==0)
+        aioSet(aoProgramaRobot,0)
+        doTaskDone=true
+        wait(bNewLog==false)
+        sNewLog="10 - Fi: ANAR A APRO BANYERA"
+        bNewLog=true
+      break
+
+      // 11: ANAR A BANYERA
+      case 11
+        wait(bNewLog==false)
+        sNewLog="11 - Inici: ANAR A BANYERA"
+        bNewLog=true
+        aioSet(aoProgramaRobot,11)
+        taskCreate "N11_Banyera",50,N11_Banyera()
+        wait(bTaskDone==true)
+        wait(aioGet(aiProgramaPlc)==0)
+        aioSet(aoProgramaRobot,0)
+        doTaskDone=true
+        wait(bNewLog==false)
+        sNewLog="11 - Fi: ANAR A BANYERA"
+        bNewLog=true
+      break
+      
+      // 12: ANAR A APRO AMPOLLA
+      case 12
+        wait(bNewLog==false)
+        sNewLog="12 - Inici: ANAR A APRO AMPOLLA"
+        bNewLog=true
+        aioSet(aoProgramaRobot,12)
+        taskCreate "N12_AproAmpolla",50,N12_AproAmpolla()
+        wait(bTaskDone==true)
+        wait(aioGet(aiProgramaPlc)==0)
+        aioSet(aoProgramaRobot,0)
+        doTaskDone=true
+        wait(bNewLog==false)
+        sNewLog="12 - Fi: ANAR A APRO AMPOLLA"
+        bNewLog=true
+      break
+
+      // 13: ANAR A AMPOLLA
+      case 13
+        wait(bNewLog==false)
+        sNewLog="13 - Inici: ANAR A AMPOLLA"
+        bNewLog=true
+        aioSet(aoProgramaRobot,13)
+        taskCreate "N13_Ampolla",50,N13_Ampolla()
+        wait(bTaskDone==true)
+        wait(aioGet(aiProgramaPlc)==0)
+        aioSet(aoProgramaRobot,0)
+        doTaskDone=true
+        wait(bNewLog==false)
+        sNewLog="13 - Fi: ANAR A AMPOLLA"
+        bNewLog=true
+      break
+
+      // 15: ANAR A APRO AGAFAR PUNTES
+      case 15
+        wait(bNewLog==false)
+        sNewLog="15 - Inici: ANAR A APRO AGAFAR PUNTES"
+        bNewLog=true
+        aioSet(aoProgramaRobot,15)
+        taskCreate "N15_AproAgafarPuntes",50,N15_AproAgafarPuntes()
+        wait(bTaskDone==true)
+        wait(aioGet(aiProgramaPlc)==0)
+        aioSet(aoProgramaRobot,0)
+        doTaskDone=true
+        wait(bNewLog==false)
+        sNewLog="15 - Fi: ANAR A APRO AGAFAR PUNTES"
+        bNewLog=true
+      break
+
+      // 16: ANAR A AGAFAR PUNTES
+      case 16
+        wait(bNewLog==false)
+        sNewLog="16 - Inici: ANAR A AGAFAR PUNTES"
+        bNewLog=true
+        aioSet(aoProgramaRobot,16)
+        taskCreate "N16_AgafarPuntes",50,N16_AgafarPuntes()
+        wait(bTaskDone==true)
+        wait(aioGet(aiProgramaPlc)==0)
+        aioSet(aoProgramaRobot,0)
+        doTaskDone=true
+        wait(bNewLog==false)
+        sNewLog="16 - Fi: ANAR A AGAFAR PUNTES"
+        bNewLog=true
+      break
+
+      // 17: ANAR A APRO TIRAR PUNTES
+      case 17
+        wait(bNewLog==false)
+        sNewLog="17 - Inici: ANAR A APRO TIRAR PUNTES"
+        bNewLog=true
+        aioSet(aoProgramaRobot,17)
+        taskCreate "N17_AproTirarPuntes",50,N17_AproTirarPuntes()
+        wait(bTaskDone==true)
+        wait(aioGet(aiProgramaPlc)==0)
+        aioSet(aoProgramaRobot,0)
+        doTaskDone=true
+        wait(bNewLog==false)
+        sNewLog="17 - Fi: ANAR A APRO TIRAR PUNTES"
+        bNewLog=true
+      break
+
+      // 18: ANAR A TIRAR PUNTES
+      case 18
+        wait(bNewLog==false)
+        sNewLog="18 - Inici: ANAR A TIRAR PUNTES"
+        bNewLog=true
+        aioSet(aoProgramaRobot,18)
+        taskCreate "N18_TirarPuntes",50,N18_TirarPuntes()
+        wait(bTaskDone==true)
+        wait(aioGet(aiProgramaPlc)==0)
+        aioSet(aoProgramaRobot,0)
+        doTaskDone=true
+        wait(bNewLog==false)
+        sNewLog="18 - Fi: ANAR A TIRAR PUNTES"
+        bNewLog=true
+      break
+
+      // 20: ANAR A APRO DOSI
+      case 20
+        wait(bNewLog==false)
+        sNewLog="20 - Inici: ANAR A APRO DOSI"
+        bNewLog=true
+        aioSet(aoProgramaRobot,20)
+        taskCreate "N20_AproDosi",50,N20_AproDosi()
+        wait(bTaskDone==true)
+        wait(aioGet(aiProgramaPlc)==0)
+        aioSet(aoProgramaRobot,0)
+        doTaskDone=true
+        wait(bNewLog==false)
+        sNewLog="20 - Fi: ANAR A APRO DOSI"
+        bNewLog=true
+      break
+
+      // 21: ANAR A DOSI
+      case 21
+        wait(bNewLog==false)
+        sNewLog="21 - Inici: ANAR A DOSI"
+        bNewLog=true
+        aioSet(aoProgramaRobot,21)
+        taskCreate "N21_Dosi",50,N21_Dosi()
+        wait(bTaskDone==true)
+        wait(aioGet(aiProgramaPlc)==0)
+        aioSet(aoProgramaRobot,0)
+        doTaskDone=true
+        wait(bNewLog==false)
+        sNewLog="21 - Fi: ANAR A DOSI"
+        bNewLog=true
+      break
+
+      // 22: ANAR A POSICIONAT DOSI
+      case 22
+        wait(bNewLog==false)
+        sNewLog="22 - Inici: ANAR A POSICIONAT DOSI"
+        bNewLog=true
+        aioSet(aoProgramaRobot,22)
+        taskCreate "N22_PosDosi",50,N22_PosDosi()
+        wait(bTaskDone==true)
+        wait(aioGet(aiProgramaPlc)==0)
+        aioSet(aoProgramaRobot,0)
+        doTaskDone=true
+        wait(bNewLog==false)
+        sNewLog="22 - Fi: ANAR A POSICIONAT DOSI"
+        bNewLog=true
+      break
+
+
+    endSwitch
+
+
+  until false
+
+end]]></Code>
+  </Program>
+</Programs>

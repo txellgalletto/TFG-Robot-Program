@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Programs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.staubli.com/robotics/VAL3/Program/2" >
+  <Program name="ComPlc" access="private" >
+    <Code><![CDATA[begin
+  do
+    // Word de vida de la comunicació entre el robot i el PLC
+    if nWordComRobot>10000
+      nWordComRobot=0
+    endIf
+    nWordComRobot=nWordComRobot+1
+    aioSet(aoWordComRobot,nWordComRobot)
+
+  until false
+end]]></Code>
+  </Program>
+</Programs>

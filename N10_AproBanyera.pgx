@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Programs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.staubli.com/robotics/VAL3/Program/2" >
+  <Program name="N10_AproBanyera" access="private" >
+    <Locals>
+      <Local name="l_pAproBanyera" type="pointRx" xsi:type="array" size="1" />
+    </Locals>
+    <Code><![CDATA[begin
+
+  // Anar a l'aproximació del punt d'agafar líquid de la banyera
+  l_pAproBanyera=pBanyera[aioGet(aiNumBanyera)]
+  l_pAproBanyera.trsf.x=l_pAproBanyera.trsf.x+nXOffset
+  l_pAproBanyera.trsf.y=l_pAproBanyera.trsf.y+nYOffset
+  l_pAproBanyera.trsf.z=l_pAproBanyera.trsf.z+nZOffset
+
+  if nZApro>0
+    l_pAproBanyera.trsf.z=l_pAproBanyera.trsf.z+nZApro
+  else
+    l_pAproBanyera.trsf.z=l_pAproBanyera.trsf.z+100
+  endIf
+
+  movel(l_pAproBanyera,tToolActiva,mLent)
+  waitEndMove()
+
+  bTaskDone=true
+end]]></Code>
+  </Program>
+</Programs>

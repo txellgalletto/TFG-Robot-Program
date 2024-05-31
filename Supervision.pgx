@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Programs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.staubli.com/robotics/VAL3/Program/2">
+  <Program name="Supervision">
+    <Code><![CDATA[begin
+  do
+
+
+    if ioStatus(aiWordComPlc)>=0
+      if taskStatus("ComPlc")==125
+        taskResume("ComPlc",1)
+      endIf
+      if taskStatus("Init")==125
+        taskResume("Init",1)
+      endIf
+
+      if taskStatus("Control")==125
+        taskResume("Control",1)
+      endIf
+
+      if taskStatus("Emergencia")==125
+        taskResume("Emergencia",1)
+      endIf
+
+      if taskStatus("Home")==125
+        taskResume("Home",1)
+      endIf
+
+      if taskStatus("Principal")==125
+        taskResume("Principal",1)
+      endIf
+
+      if taskStatus("Safety")==125
+        taskResume("Safety",1)
+      endIf
+
+      if taskStatus("N10_AproBanyera")==125
+        taskResume("N10_AnarBanyera",1)
+      endIf
+
+      if taskStatus("N11_Banyera")==125
+        taskResume("N11_Banyera",1)
+      endIf
+      
+      if taskStatus("N12_AproAmpolla")==125
+        taskResume("N12_AproAmpolla",1)
+      endIf
+
+      if taskStatus("N13_Ampolla")==125
+        taskResume("N13_Ampolla",1)
+      endIf
+
+      if taskStatus("N15_AproAgafarPuntes")==125
+        taskResume("N15_AproAgafarPuntes",1)
+      endIf
+
+      if taskStatus("N16_AgafarPuntes")==125
+        taskResume("N16_AgafarPuntes",1)
+      endIf
+
+      if taskStatus("N17_AproTirarPuntes")==125
+        taskResume("N17_AproTirarPuntes",1)
+      endIf
+
+      if taskStatus("N18_TirarPuntes")==125
+        taskResume("N18_TirarPuntes",1)
+      endIf
+
+      if taskStatus("N20_AproDosi")==125
+        taskResume("N20_AproDosi",1)
+      endIf
+
+      if taskStatus("N21_Dosi")==125
+        taskResume("N21_Dosi",1)
+      endIf
+
+      if taskStatus("N22_PosDosi")==125
+        taskResume("N22_PosiDosi",1)
+      endIf
+
+    endIf
+  until false
+end]]></Code>
+  </Program>
+</Programs>

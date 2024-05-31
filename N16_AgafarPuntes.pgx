@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Programs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.staubli.com/robotics/VAL3/Program/2" >
+  <Program name="N16_AgafarPuntes" access="private" >
+    <Locals>
+      <Local name="l_pAgafarPuntes" type="pointRx" xsi:type="array" size="1" />
+      <Local name="l_pAgafarPuntesRapid" type="pointRx" xsi:type="array" size="1" />
+    </Locals>
+    <Code><![CDATA[begin
+
+  // Anar al punt de la banyera
+  if aioGet(aiNumPipeta)==2
+    l_pAgafarPuntes=pAgafarPuntes8
+  else
+    l_pAgafarPuntes=pAgafarPuntes1
+  endIf
+
+  l_pAgafarPuntes.trsf.x=l_pAgafarPuntes.trsf.x+nXOffset
+  l_pAgafarPuntes.trsf.y=l_pAgafarPuntes.trsf.y+nYOffset
+  l_pAgafarPuntes.trsf.z=l_pAgafarPuntes.trsf.z+nZOffset
+  l_pAgafarPuntesRapid=l_pAgafarPuntes
+  l_pAgafarPuntesRapid.trsf.z=l_pAgafarPuntesRapid.trsf.z+20
+  movel(l_pAgafarPuntesRapid,tToolActiva,mLent)
+  waitEndMove()
+  movel(l_pAgafarPuntes,tToolActiva,mAgafarPuntes)
+  waitEndMove()
+
+  bTaskDone=true
+end]]></Code>
+  </Program>
+</Programs>

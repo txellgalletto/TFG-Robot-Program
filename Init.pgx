@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Programs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.staubli.com/robotics/VAL3/Program/2" >
+  <Program name="Init" access="private" >
+    <Code><![CDATA[begin
+
+
+  // Inicialització de variables
+  doRobotHome=false
+  doRobotEnMoviment=false
+  doRobotPreparat=false
+  doAlarmaColisioRobot=false
+  doAlarmaTascaRobot=false
+  doTaskDone=false
+  bTaskDone=false
+  bPrimerCicle=false
+  bNewLog=false
+  sLog=""
+  nSeqHome=0
+  aioSet(aoProgramaRobot,0)
+  aioSet(aoZonaHome,0)
+  nAngleInclinarPipeta=0
+
+  //  // Definir l'eina (valores de inercia en kg·m2)
+  nInerciaEina[0,0]=0.284
+  nInerciaEina[0,1]=0
+  nInerciaEina[0,2]=0
+  nInerciaEina[1,0]=0
+  nInerciaEina[1,1]=0.348
+  nInerciaEina[1,2]=0
+  nInerciaEina[2,0]=0
+  nInerciaEina[2,1]=0
+  nInerciaEina[2,2]=0.212
+  trEina={94.8,-0.4,220.5,0,0,0}
+  nPesEina=15.8
+  setPayload(flange,nPesEina,trEina,nInerciaEina)
+
+
+  doRobotPreparat=true
+
+  taskCreate "Control",50,Control()
+  taskCreate "Log",50,Log()
+  taskCreate "Safety",50,Safety()
+  taskCreate "Principal",50,Principal()
+  taskCreate "Emergencia",2,Emergencia()
+
+end]]></Code>
+  </Program>
+</Programs>
