@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Programs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.staubli.com/robotics/VAL3/Program/2" >
+  <Program name="N1_Home" access="private" >
+    <Locals>
+      <Local name="l_pHere" type="pointRx" xsi:type="array" size="1" />
+    </Locals>
+    <Code><![CDATA[begin
+  do
+
+    switch nSeqHome
+
+      // Inici de la seqüència
+      case 0
+        // Anar a home
+        doRobotHome=false
+        doRobotEnMoviment=true
+        aioSet(aoZonaHome,0)
+        waitEndMove()
+        // Comprovar a quina posició es troba el robot
+        l_pHere=here(tToolActiva,fTaula)
+        pHereHome=l_pHere
+        nSeqHome=10
+      break
+
+      // Pujar verticalment fins a una cota segura en Z
+      case 10
+        if l_pHere.trsf.z<pHome.trsf.z
+          l_pHere.trsf.z=pHome.trsf.z
+          movel(l_pHere,tToolActiva,mHome)
+          waitEndMove()
+          nSeqHome=20
+        else
+          nSeqHome=20
+        endIf
+      break
+
+      // Comprovar on es troba el robot
+      case 20
+        // Ja està en posició de Home
+        aioSet(aoZonaHome,99)
+        nSeqHome=1000
+      break
+
+      // Fi del HOME
+      case 1000
+        movel(pHome,tToolActiva,mHome)
+        waitEndMove()
+        doRobotHome=true
+        doRobotEnMoviment=false
+        bTaskDone=true
+        nSeqHome=1001
+      break
+    endSwitch
+  until nSeqHome==1001
+end]]></Code>
+  </Program>
+</Programs>
